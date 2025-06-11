@@ -1,54 +1,48 @@
-# React + TypeScript + Vite
+# Requirements
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Implement the Atomic Design methodology in structuring your project.
+Divide the application into atoms, molecules, organisms, templates, and pages.
 
-Currently, two official plugins are available:
+Create a TypeScript interface for the task object, defining properties such as id,
+name, and completed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Design and style the application using CSS, focusing on Atomic Design principles.
+Consider the styling for atoms (e.g., buttons, input fields), molecules (e.g., task item),
+and organisms (e.g., task list).
 
-## Expanding the ESLint configuration
+Include an input field to add new tasks.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Display a list of tasks with checkboxes to mark them as completed.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Implement functionality to remove completed tasks.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Apply TypeScript for handling the logic of adding, marking as completed, and
+removing tasks.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Ensure that TypeScript types are used consistently throughout the application.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Implementation
+
+Use Atomic Design principles to organize your project structure.
+
+Utilize TypeScript for type safety and maintainability.
+
+Implement CSS for styling based on the principles of Atomic Design.
+
+Make the application responsive and visually appealing.
+
+Include a README file explaining the Atomic Design choices made during
+development and any other relevant considerations.
+
+## Bonus
+
+Implement local storage functionality to persist tasks even after the page is refreshed.
+
+Add animations or transitions to enhance the user experience.
+
+Allow users to edit task names.
+
+Include lint or style configurations of your choice, such as eslint, stylelint,
+prettier, or other.
+
+Include unit tests using a testing framework of your choice, such as jest.
