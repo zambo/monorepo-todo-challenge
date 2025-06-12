@@ -11,7 +11,7 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "ci": "pnpm lint && pnpm check-types && pnpm test && pnpm build",
+    "check-all": "turbo lint check-types test build",
     "clean": "turbo clean",
     "clean:git": "find . -name \".git\" -type d -not -path \"./.git\" -exec rm -rf {} +",
     "commit": "cz",

@@ -5,13 +5,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "monday" 
       time: "09:00"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "@zambo"
-    assignees:
-      - "@zambo"
+    open-pull-requests-limit: 5
     commit-message:
       prefix: "chore"
       include: "scope"
