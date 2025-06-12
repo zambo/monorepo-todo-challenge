@@ -11,6 +11,8 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "ci": "pnpm lint && pnpm check-types && pnpm test && pnpm build",
+    "clean": "turbo clean",
     "clean:git": "find . -name \".git\" -type d -not -path \"./.git\" -exec rm -rf {} +",
     "commit": "cz",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
