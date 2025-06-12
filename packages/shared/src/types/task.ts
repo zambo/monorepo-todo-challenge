@@ -1,3 +1,5 @@
+import { TASK_FILTER } from "../constants/tasks";
+
 export interface Task {
   readonly id: string;
   name: string;
@@ -15,7 +17,8 @@ export interface TaskManagerState {
   filter: TaskFilter;
 }
 
-export type TaskFilter = "all" | "active" | "completed";
+export type TaskFilter =
+  (typeof TASK_FILTER)[keyof typeof TASK_FILTER]["value"];
 
 export interface TaskActions {
   addTask: (name: string) => void;
