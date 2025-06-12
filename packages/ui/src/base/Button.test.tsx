@@ -4,7 +4,7 @@ import { describe, expect, test, vi } from "vitest";
 // Extends vitest matchers with custom matchers for testing DOM nodes
 import "@testing-library/jest-dom";
 
-import { Button } from "./button";
+import { Button } from "./Button";
 
 describe("Button", () => {
   test("renders and handles click", async () => {
