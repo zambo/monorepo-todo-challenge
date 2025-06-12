@@ -2,6 +2,11 @@
 module.exports = {
   extends: ["prettier"],
   plugins: ["@typescript-eslint", "import", "unused-imports"],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+  },
   rules: {
     // TypeScript rules
     "prefer-const": "error",

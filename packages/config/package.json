@@ -13,5 +13,10 @@
     "eslint",
     "typescript",
     "tailwind"
-  ]
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "typescript": "^5.8.3"
+  }
 }
