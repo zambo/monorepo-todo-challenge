@@ -20,6 +20,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "test": "vitest",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"
   },
