@@ -1,0 +1,17 @@
+{
+  "extends": "../config/typescript/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "paths": {
+      "@repo/ui/*": ["./src/*"],
+      "@repo/shared/*": ["../shared/src/*"],
+      "@repo/utils/*": ["../utils/src/*"],
+      "@repo/config/*": ["../config/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.*", "**/*.spec.*"]
+}

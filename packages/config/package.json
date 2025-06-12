@@ -1,0 +1,17 @@
+{
+  "name": "@repo/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.js",
+  "exports": {
+    "./tailwind/base.css": "./tailwind/base.css",
+    "./tailwind/theme.css": "./tailwind/theme.css",
+    "./eslint/*": "./eslint/*",
+    "./typescript/*": "./typescript/*"
+  },
+  "files": [
+    "eslint",
+    "typescript",
+    "tailwind"
+  ]
+}
