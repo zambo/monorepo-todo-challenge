@@ -4,5 +4,8 @@
   "buildCommand": "pnpm build --filter=todo-web",
   "outputDirectory": "apps/todo-web/.next",
   "installCommand": "pnpm install",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "git": {
+    "submodules": true
+  }
 }
