@@ -10,9 +10,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "constants": "./dist/constants.js",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "constants": "./dist/constants.js"
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
