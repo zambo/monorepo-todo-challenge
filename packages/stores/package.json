@@ -1,0 +1,49 @@
+{
+  "name": "@repo/stores",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "State management stores for the todo app",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "state-management",
+    "zustand",
+    "typescript",
+    "todo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zustand": "^5.0.0",
+    "immer": "^10.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "@repo/shared": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.0.0"
+  }
+}
