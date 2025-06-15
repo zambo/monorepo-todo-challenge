@@ -1,4 +1,3 @@
-"use client";
 // Base components
 export * from "./base/Button";
 export * from "./base/Input";

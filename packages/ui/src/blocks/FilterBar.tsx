@@ -1,4 +1,3 @@
-"use client";
 import { TASK_FILTER } from "@repo/shared";
 import type { TaskFilter } from "@repo/shared/types/task";
 
