@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       "@repo/ui": "./packages/ui/src",
       "@repo/shared": "./packages/shared/src",
+      "@repo/stores": "./packages/stores/src",
       "@repo/utils": "./packages/utils/src",
       "@repo/config": "./packages/config",
     },
