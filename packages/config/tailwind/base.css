@@ -7,5 +7,166 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  /* Card component matching the design */
+  .card {
+    @apply bg-white rounded-2xl shadow-lg;
+  }
+
+  /* Task item animations */
+  .task-item {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .task-item:hover {
+    @apply transform translate-x-1;
+  }
+
+  /* Floating action button */
+  .fab {
+    @apply fixed bottom-8 right-8 w-14 h-14 bg-emerald-400 hover:bg-emerald-500 
+           rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 
+           transition-all duration-200 flex items-center justify-center;
+  }
+
+  /* Custom checkbox */
+  .checkbox {
+    @apply w-5 h-5 rounded-full border-2 flex items-center justify-center 
+           transition-all duration-200 cursor-pointer;
+  }
+
+  .checkbox-unchecked {
+    @apply border-gray-300 hover:border-emerald-400;
+  }
+
+  .checkbox-checked {
+    @apply bg-emerald-400 border-emerald-400;
+  }
+
+  /* Input styling */
+  .input-minimal {
+    @apply w-full px-0 py-2 text-gray-800 placeholder-gray-400 bg-transparent 
+           border-0 border-b-2 border-gray-200 focus:border-emerald-400 
+           focus:outline-none transition-colors duration-200;
+  }
+
+  /* Filter button */
+  .filter-button {
+    @apply px-3 py-1 text-xs font-medium rounded-full transition-all duration-200;
+  }
+
+  .filter-button-active {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+
+  .filter-button-inactive {
+    @apply text-gray-500 hover:bg-gray-100;
+  }
+
+  /* TODO: Add language switcher styles */
+  /* Language switcher */
+  /* .language-switcher { */
+  /* } */
+}
+
+@layer utilities {
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 0.6s ease-out;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-bounce {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceGentle {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Focus styles */
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-emerald-400 ring-offset-2;
+  }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0f172a;
+    --color-foreground: #f8fafc;
+    --color-border: #334155;
   }
 }

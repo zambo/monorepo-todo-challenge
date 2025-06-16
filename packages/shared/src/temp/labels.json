@@ -1,0 +1,19 @@
+{
+  "header.title": "Todo App",
+  "header.description": "Enterprise-grade monorepo with Atomic Design",
+  "input.placeholder": "What needs to be done?",
+  "stats.total": "Total",
+  "stats.active": "Active",
+  "stats.completed": "Completed",
+  "stats.completionRate": "% Complete",
+  "filter.all": "all",
+  "filter.active": "active",
+  "filter.completed": "completed",
+  "empty.noTasks": "No tasks yet. Add one above to get started!",
+  "empty.noFilteredTasks": "No {filter} tasks found.",
+  "button.clearCompleted": "Clear {count} Completed Task{plural}",
+  "devInfo.title": "🎯 Production Ready!",
+  "devInfo.description": "Full monorepo architecture with proper package imports, Atomic Design, enterprise state management, and zero errors!",
+  "devInfo.filter": "Filter: {filter} | Tasks: {total} | Filtered: {filtered}",
+  "devInfo.usingStores": "✅ Using @repo/stores package imports"
+}

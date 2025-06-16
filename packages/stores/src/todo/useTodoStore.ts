@@ -1,6 +1,3 @@
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import {
   Task,
   TaskFilter,
@@ -8,13 +5,11 @@ import {
   LOCAL_STORAGE_KEYS,
 } from "@repo/shared";
 import { generateId } from "@repo/utils";
+import { create } from "zustand";
+import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
-import type {
-  TodoStore,
-  TodoStoreState,
-  TodoStoreActions,
-  CreateTodoStoreOptions,
-} from "./types";
+import type { TodoStore, CreateTodoStoreOptions } from "./types";
 
 /**
  * Simplified todo store with built-in Zustand persistence
