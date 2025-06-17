@@ -1,84 +1,153 @@
-# Turborepo starter
+# Todo App with Atomic Design
 
-This Turborepo starter is maintained by the Turborepo core team.
+A TypeScript todo application built to explore Atomic Design methodology in a production-ready monorepo setup.
 
-## Using this example
+## Architecture Decisions
 
-Run the following command:
+Before diving into functionality, I made some key architectural choices:
 
-```sh
-npx create-turbo@latest
-```
+### Monorepo Structure
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+Set up a monorepo with Turborepo to enable code reuse across future platforms (React Native, Electron, etc.). Each package has a clear responsibility:
 
 ```
-cd my-turborepo
-pnpm build
+├── apps/todo-web/          # Next.js web app
+├── packages/
+│   ├── ui/                 # Atomic Design components
+│   ├── shared/             # TypeScript types
+│   ├── stores/             # State management
+│   └── utils/              # Helper functions
 ```
 
-### Develop
+### Code Quality Pipeline
 
-To develop all apps and packages, run the following command:
+- **TypeScript strict mode** - Catch errors early
+- **ESLint + Prettier** - Consistent code style
+- **Conventional commits** - Standardized commit messages
+- **Husky + lint-staged** - Pre-commit quality checks
+- **Vitest** - Fast testing with good TypeScript support
 
+### Tech Stack
+
+- **Turborepo** - Monorepo management with intelligent caching
+- **TypeScript** - Type safety across all packages
+- **Zustand + Immer** - Simple, type-safe state management
+- **Tailwind CSS** - Utility-first styling
+- **Next.js 15** - React framework with App Router
+
+## Atomic Design Implementation
+
+Following Brad Frost's methodology, components are organized by complexity:
+
+### Atoms (`packages/ui/src/base/`)
+
+Basic building blocks that can't be broken down further:
+
+- `Button.tsx` - All button variants
+- `Input.tsx` - Text input with validation states
+- `Checkbox.tsx` - Custom styled checkbox
+- `ActionButton.tsx` - Icon buttons for actions
+
+### Molecules (`packages/ui/src/blocks/`)
+
+Combinations of atoms with specific functionality:
+
+- `TaskInput.tsx` - Input + submit button for adding tasks
+- `TaskItem.tsx` - Checkbox + text + action buttons
+- `FilterBar.tsx` - Multiple filter buttons
+
+### Organisms (`packages/ui/src/sections/`)
+
+Complex components with business logic:
+
+- `TaskList.tsx` - Manages collections of tasks
+- `ProgressTracker.tsx` - Shows completion statistics
+
+### Templates (`packages/ui/src/layouts/`)
+
+Page structure without content:
+
+- `TodoLayout.tsx` - Overall page layout and responsive behavior
+
+### Pages (`apps/todo-web/src/app/`)
+
+Templates with real data:
+
+- `page.tsx` - Todo app with state management integration
+
+## TypeScript Interface
+
+The core Task interface defined in `packages/shared`:
+
+```typescript
+interface Task {
+  readonly id: string;
+  name: string;
+  completed: boolean;
+  readonly createdAt: Date;
+  updatedAt: Date;
+  description?: string;
+}
 ```
-cd my-turborepo
+
+All task operations use strict typing to prevent runtime errors.
+
+## Features Implemented
+
+### Core Requirements ✅
+
+- ✅ Atomic Design structure with proper component hierarchy
+- ✅ TypeScript Task interface with complete type safety
+- ✅ Input field to add new tasks
+- ✅ Task list with completion checkboxes
+- ✅ Remove completed tasks functionality
+- ✅ CSS styling following Atomic Design principles
+- ✅ Responsive design
+
+### Bonus Features ✅
+
+- ✅ Local storage persistence
+- ✅ Smooth animations and transitions
+- ✅ Inline task editing
+- ✅ ESLint, Prettier, and style configurations
+- ✅ Comprehensive unit tests with Vitest
+
+## Quick Start
+
+```bash
+pnpm install
 pnpm dev
 ```
 
-### Remote Caching
+App runs at `http://localhost:3000`
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+**Other commands:**
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- `pnpm test` - Run all tests
+- `pnpm lint` - Check code quality
+- `pnpm check-all` - Full quality pipeline
+- `pnpm build` - Production build
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+## Testing
 
-```
-cd my-turborepo
-npx turbo login
-```
+Tests cover component behavior, state management, and accessibility:
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+pnpm test          # Run once
+pnpm test:watch    # Watch mode
+pnpm test:coverage # Coverage report
 ```
 
-## Useful Links
+## Why These Choices?
 
-Learn more about the power of Turborepo:
+**Monorepo**: Enables sharing components, types, and utilities across future web/mobile/desktop apps while maintaining clear boundaries.
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+**Atomic Design**: Provides a systematic way to build and maintain UI components at scale. Each level has clear responsibilities.
+
+**TypeScript Strict**: Catches bugs at compile time rather than runtime. Especially valuable in a component library.
+
+**Zustand**: Simpler than Redux, excellent TypeScript support, smaller bundle size.
+
+---
+
+_Built as a technical assessment demonstrating production-ready architecture decisions._
