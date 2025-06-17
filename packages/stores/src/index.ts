@@ -11,10 +11,14 @@ export {
   // Individual hooks for better performance
   useTasks,
   useFilter,
+  useIsEditing,
   useAddTask,
   useToggleTask,
   useUpdateTask,
   useDeleteTask,
+  useEditTask,
+  useStartEditing,
+  useCancelEditing,
   useClearCompleted,
   useSetFilter,
   useToggleAllTasks,
@@ -22,6 +26,7 @@ export {
   useExportTasks,
   useClearAllTasks,
   useReorderTasks,
+  useGetProgress,
 } from "./todo/useTodoStore";
 
 export * from "./todo/selectors";

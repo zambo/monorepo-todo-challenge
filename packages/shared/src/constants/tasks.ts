@@ -31,3 +31,41 @@ export const LOCAL_STORAGE_KEYS = {
   TASKS: "tasks",
   FILTER: "taskFilter",
 } as const;
+
+// Progress related constants
+export const PROGRESS_COLORS = {
+  container: "bg-gray-100 dark:bg-gray-800",
+  bar: {
+    empty: "bg-gray-200 dark:bg-gray-700",
+    low: "bg-orange-500 dark:bg-orange-600",
+    medium: "bg-yellow-500 dark:bg-yellow-600",
+    good: "bg-teal-500 dark:bg-teal-600",
+    excellent: "bg-green-500 dark:bg-green-600",
+  },
+  text: {
+    primary: "text-gray-900 dark:text-gray-50",
+    secondary: "text-gray-500 dark:text-gray-400",
+  },
+};
+
+/**
+ * Returns the appropriate color class for a progress percentage
+ */
+export function getProgressColor(percentage: number): string {
+  if (percentage <= 0) return PROGRESS_COLORS.bar.empty;
+  if (percentage <= 25) return PROGRESS_COLORS.bar.low;
+  if (percentage <= 50) return PROGRESS_COLORS.bar.medium;
+  if (percentage <= 75) return PROGRESS_COLORS.bar.good;
+  return PROGRESS_COLORS.bar.excellent;
+}
+
+/**
+ * Returns a motivational label based on progress percentage
+ */
+export function getProgressLabel(percentage: number): string {
+  if (percentage <= 0) return "Get started!";
+  if (percentage <= 25) return "Just getting started";
+  if (percentage <= 50) return "Making progress";
+  if (percentage <= 75) return "Almost there";
+  return "Great job!";
+}

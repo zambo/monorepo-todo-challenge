@@ -1,5 +1,5 @@
 import { TASK_FILTER } from "@repo/shared";
-import type { TaskFilter } from "@repo/shared/types/task";
+import type { TaskFilter } from "@repo/shared";
 
 import { Button } from "../base/Button";
 

@@ -1,10 +1,17 @@
-import { Task, TaskFilter, TaskActions, TaskManagerState } from "@repo/shared";
+import {
+  Task,
+  TaskFilter,
+  TaskActions,
+  TaskManagerState,
+  TaskEditData,
+} from "@repo/shared";
 
 // Store-specific state that extends the base shared types
 export interface TodoStoreState extends TaskManagerState {
   // Core state
   tasks: Task[];
   filter: TaskFilter;
+  isEditing: string | null;
 
   // Simple computed cache (optional, for performance)
   _computedCache: {
@@ -18,6 +25,12 @@ export interface TodoStoreState extends TaskManagerState {
 
 // Actions interface specific to the todo store
 export interface TodoStoreActions extends TaskActions {
+  // Enhanced CRUD operations
+  addTask: (name: string, description?: string) => void;
+  editTask: (id: string, updates: TaskEditData) => void;
+  startEditing: (id: string) => void;
+  cancelEditing: () => void;
+
   // Bulk operations
   toggleAllTasks: (completed?: boolean) => void;
   importTasks: (tasks: Task[]) => void;
@@ -38,6 +51,13 @@ export interface TodoStoreActions extends TaskActions {
     active: number;
     completed: number;
     completionRate: number;
+  };
+
+  // Progress tracking
+  getProgress: () => {
+    completed: number;
+    total: number;
+    percentage: number;
   };
 }
 

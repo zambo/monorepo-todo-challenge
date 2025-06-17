@@ -1,6 +1,10 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 /**
  * Generates a unique ID string using randomness and the current timestamp.
  * Uses `crypto.getRandomValues` if available, otherwise falls back to `Math.random`.
+ * @deprecated using react utils `useId` now. Leaving this for "legacy. TODO: test and remove this fn"
  * @returns {string} A unique identifier string.
  */
 export function generateId(): string {
@@ -23,8 +27,12 @@ export function generateId(): string {
   return `${randomPart}${timestampPart}`;
 }
 
-export function cn(
-  ...classes: (string | undefined | null | boolean)[]
-): string {
-  return classes.filter(Boolean).join(" ");
+/**
+ * Combines class names with proper Tailwind CSS conflict resolution.
+ * Uses clsx for conditional classes and tailwind-merge for deduplication.
+ * @param inputs - Class names, objects, or arrays
+ * @returns Merged class string
+ */
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
 }

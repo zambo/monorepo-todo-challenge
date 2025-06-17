@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "start": "turbo run start",
+    "start:web": "turbo run start --filter=todo-web",
     "dev": "turbo run dev",
     "dev:clean": "pnpm run clean && pnpm run build && pnpm run dev",
     "dev:web": "pnpm run build --filter=!todo-web && turbo run dev --filter=todo-web",

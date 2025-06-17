@@ -2,6 +2,8 @@
 export * from "./base/Button";
 export * from "./base/Input";
 export * from "./base/Checkbox";
+export * from "./base/ActionButton";
+export * from "./base/DateHeader";
 
 // Block components
 export * from "./blocks";

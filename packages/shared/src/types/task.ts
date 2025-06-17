@@ -7,10 +7,26 @@ export interface Task {
   completed: boolean;
   readonly createdAt: Date;
   updatedAt: Date;
+  description?: string;
 }
 
 export interface TaskFormData {
   name: string;
+  description?: string;
+}
+
+export interface TaskEditData {
+  name: string;
+  description?: string;
+}
+
+/**
+ * Progress tracking data for visualization
+ */
+export interface ProgressData {
+  completed: number;
+  total: number;
+  percentage: number;
 }
 
 // Domain value types

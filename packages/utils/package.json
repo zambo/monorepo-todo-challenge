@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Utility functions for the todo app",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -22,13 +22,19 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^3.3.1"
+  },
   "devDependencies": {
     "@repo/config": "workspace:*",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   }
 }

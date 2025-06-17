@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Shared types and constants for the todo app",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -22,13 +22,15 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@repo/config": "workspace:*",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   }
 }

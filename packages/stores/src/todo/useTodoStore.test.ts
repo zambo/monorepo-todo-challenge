@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { createTodoStore } from "./useTodoStore";
+
 import { TASK_FILTERS } from "@repo/shared";
+
+import { createTodoStore } from "./useTodoStore";
 
 describe("TodoStore", () => {
   let store: ReturnType<typeof createTodoStore>;

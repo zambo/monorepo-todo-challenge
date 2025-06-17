@@ -1,10 +1,12 @@
 import { defineConfig } from "tsup";
 
-export default defineConfig({
+export default defineConfig((options) => ({
   entry: ["src/index.ts"],
   format: ["cjs", "esm"],
   dts: true,
-  splitting: false,
   sourcemap: true,
+  external: ["zustand", "immer", "@repo/shared", "@repo/utils"],
+  splitting: false,
   clean: true,
-});
+  watch: options.watch,
+}));

@@ -1,7 +1,7 @@
 "use client";
 
-import { TASK_FILTER, Task, TaskFilter } from "@repo/shared";
-import { useMemo } from "react";
+import { TASK_FILTER, Task, TaskFilter, TaskEditData } from "@repo/shared";
+import { useMemo, useState } from "react";
 
 import { FilterBar } from "../blocks/FilterBar";
 import { TaskItem } from "../blocks/TaskItem";
@@ -11,7 +11,7 @@ export interface TaskListProps {
   currentFilter: TaskFilter;
   onToggleTask: (id: string) => void;
   onDeleteTask: (id: string) => void;
-  onEditTask?: (id: string, name: string) => void;
+  onEditTask?: (id: string, updates: TaskEditData) => void;
   onFilterChange: (filter: TaskFilter) => void;
   onClearCompleted: () => void;
   className?: string;
@@ -29,6 +29,8 @@ export const TaskList = ({
   className = "",
   emptyMessage = "No tasks found",
 }: TaskListProps) => {
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+
   // Filter tasks based on current filter
   const filteredTasks = useMemo(() => {
     switch (currentFilter) {
@@ -46,6 +48,21 @@ export const TaskList = ({
     return tasks.some((task) => task.completed);
   }, [tasks]);
 
+  const handleStartEdit = (id: string) => {
+    setEditingTaskId(id);
+  };
+
+  const handleSaveEdit = (id: string, updates: TaskEditData) => {
+    if (onEditTask) {
+      onEditTask(id, updates);
+    }
+    setEditingTaskId(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingTaskId(null);
+  };
+
   return (
     <div className={`flex flex-col ${className}`}>
       <FilterBar
@@ -56,29 +73,34 @@ export const TaskList = ({
         className="mb-4"
       />
 
-      <div className="bg-white border border-gray-200 rounded-md overflow-hidden">
+      <div className="space-y-6">
         {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) => {
-            // Conditionally add the onEdit prop only for active tasks
-            // This is a deliberate choice to disable editing for completed tasks,
-            const taskProps = {
-              key: task.id,
-              task,
-              onToggle: onToggleTask,
-              onDelete: onDeleteTask,
-              ...(!task.completed && { onEdit: onEditTask }),
-            };
-            return <TaskItem {...taskProps} />;
-          })
+          filteredTasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              isEditing={editingTaskId === task.id}
+              onToggle={onToggleTask}
+              onDelete={onDeleteTask}
+              onStartEdit={handleStartEdit}
+              onSaveEdit={handleSaveEdit}
+              onCancelEdit={handleCancelEdit}
+              className="bg-white border border-gray-200 rounded-lg shadow-sm"
+            />
+          ))
         ) : (
-          <div className="p-4 text-center text-gray-500">{emptyMessage}</div>
+          <div className="bg-white border border-gray-200 rounded-lg p-8 text-center">
+            <div className="text-gray-500 text-sm">{emptyMessage}</div>
+          </div>
         )}
       </div>
 
-      <div className="mt-2 text-sm text-gray-500">
-        {tasks.length} {tasks.length === 1 ? "task" : "tasks"} •{" "}
-        {tasks.filter((t) => !t.completed).length} remaining
-      </div>
+      {tasks.length > 0 && (
+        <div className="mt-4 text-center text-sm text-gray-500">
+          {tasks.length} {tasks.length === 1 ? "task" : "tasks"} •{" "}
+          {tasks.filter((t) => !t.completed).length} remaining
+        </div>
+      )}
     </div>
   );
 };

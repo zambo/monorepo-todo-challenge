@@ -1,4 +1,5 @@
 import type { Task, TaskFilter } from "./task";
+import type { TaskEditData } from "./task";
 
 // Behavioral contracts - what any task management system should implement
 export interface TaskActions {
@@ -7,6 +8,11 @@ export interface TaskActions {
   toggleTask: (id: string) => void;
   updateTask: (id: string, name: string) => void;
   deleteTask: (id: string) => void;
+
+  // Enhanced editing operations
+  editTask: (id: string, updates: TaskEditData) => void;
+  startEditing: (id: string) => void;
+  cancelEditing: () => void;
 
   // Bulk operations
   clearCompleted: () => void;
@@ -17,6 +23,7 @@ export interface TaskActions {
 export interface TaskManagerState {
   tasks: Task[];
   filter: TaskFilter;
+  isEditing: string | null;
 }
 
 // Combined contract - full task management interface

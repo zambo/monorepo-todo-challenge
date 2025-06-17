@@ -5,7 +5,7 @@
   "type": "module",
   "description": "State management stores for the todo app",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -22,7 +22,8 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "state-management",
@@ -34,7 +35,7 @@
   "license": "ISC",
   "dependencies": {
     "zustand": "^5.0.0",
-    "immer": "^10.0.0"
+    "immer": "^9.0.21"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0"

@@ -5,6 +5,7 @@ import {
   LOCAL_STORAGE_KEYS,
 } from "@repo/shared";
 import { generateId } from "@repo/utils";
+
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
@@ -29,6 +30,7 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
     // Initial state
     tasks: initialTasks,
     filter: initialFilter,
+    isEditing: null,
     _computedCache: {
       activeTasks: null,
       completedTasks: null,
@@ -38,7 +40,7 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
     },
 
     // Core CRUD operations
-    addTask: (name: string) => {
+    addTask: (name: string, description?: string) => {
       if (!name.trim()) return;
 
       set((state) => {
@@ -48,6 +50,7 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
           completed: false,
           createdAt: new Date(),
           updatedAt: new Date(),
+          ...(description?.trim() && { description: description.trim() }),
         };
         state.tasks.push(newTask);
       });
@@ -81,6 +84,42 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
         if (index !== -1) {
           state.tasks.splice(index, 1);
         }
+        if (state.isEditing === id) {
+          state.isEditing = null;
+        }
+      });
+    },
+
+    // Enhanced edit operations
+    editTask: (id: string, updates: { name: string; description?: string }) => {
+      if (!updates.name.trim()) return;
+
+      set((state) => {
+        const task = state.tasks.find((t) => t.id === id);
+        if (task) {
+          task.name = updates.name.trim();
+          if (updates.description !== undefined) {
+            if (updates.description?.trim()) {
+              task.description = updates.description.trim();
+            } else {
+              delete task.description;
+            }
+          }
+          task.updatedAt = new Date();
+        }
+        state.isEditing = null;
+      });
+    },
+
+    startEditing: (id: string) => {
+      set((state) => {
+        state.isEditing = id;
+      });
+    },
+
+    cancelEditing: () => {
+      set((state) => {
+        state.isEditing = null;
       });
     },
 
@@ -189,6 +228,15 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
 
       return { total, active, completed, completionRate };
     },
+
+    getProgress: () => {
+      const { tasks } = get();
+      const completed = tasks.filter((task) => task.completed).length;
+      const total = tasks.length;
+      const percentage =
+        total === 0 ? 0 : Math.round((completed / total) * 100);
+      return { completed, total, percentage };
+    },
   }));
 
   // Simple Zustand middleware composition
@@ -201,6 +249,7 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
           partialize: (state) => ({
             tasks: state.tasks,
             filter: state.filter,
+            // Don't persist isEditing state
           }),
           onRehydrateStorage: () => (state) => {
             if (state) {
@@ -224,6 +273,7 @@ function createTodoStore(options: CreateTodoStoreOptions = {}) {
         partialize: (state) => ({
           tasks: state.tasks,
           filter: state.filter,
+          // Don't persist isEditing state
         }),
         onRehydrateStorage: () => (state) => {
           if (state) {
@@ -254,10 +304,16 @@ export { createTodoStore };
 // Individual hooks for better performance and stability
 export const useTasks = () => useTodoStore((state) => state.tasks);
 export const useFilter = () => useTodoStore((state) => state.filter);
+export const useIsEditing = () => useTodoStore((state) => state.isEditing);
 export const useAddTask = () => useTodoStore((state) => state.addTask);
 export const useToggleTask = () => useTodoStore((state) => state.toggleTask);
 export const useUpdateTask = () => useTodoStore((state) => state.updateTask);
 export const useDeleteTask = () => useTodoStore((state) => state.deleteTask);
+export const useEditTask = () => useTodoStore((state) => state.editTask);
+export const useStartEditing = () =>
+  useTodoStore((state) => state.startEditing);
+export const useCancelEditing = () =>
+  useTodoStore((state) => state.cancelEditing);
 export const useClearCompleted = () =>
   useTodoStore((state) => state.clearCompleted);
 export const useSetFilter = () => useTodoStore((state) => state.setFilter);
@@ -269,6 +325,7 @@ export const useClearAllTasks = () =>
   useTodoStore((state) => state.clearAllTasks);
 export const useReorderTasks = () =>
   useTodoStore((state) => state.reorderTasks);
+export const useGetProgress = () => useTodoStore((state) => state.getProgress);
 
 // Stable selectors for grouped hooks (if needed)
 const actionsSelector = (state: TodoStore) => ({
@@ -276,6 +333,9 @@ const actionsSelector = (state: TodoStore) => ({
   toggleTask: state.toggleTask,
   updateTask: state.updateTask,
   deleteTask: state.deleteTask,
+  editTask: state.editTask,
+  startEditing: state.startEditing,
+  cancelEditing: state.cancelEditing,
   clearCompleted: state.clearCompleted,
   setFilter: state.setFilter,
   toggleAllTasks: state.toggleAllTasks,
@@ -288,10 +348,12 @@ const actionsSelector = (state: TodoStore) => ({
 const dataSelector = (state: TodoStore) => ({
   tasks: state.tasks,
   filter: state.filter,
+  isEditing: state.isEditing,
   getActiveTasks: state.getActiveTasks,
   getCompletedTasks: state.getCompletedTasks,
   getFilteredTasks: state.getFilteredTasks,
   getTaskStats: state.getTaskStats,
+  getProgress: state.getProgress,
 });
 
 // Alternative grouped hooks - removed shallow parameter to fix build errors
