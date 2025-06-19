@@ -35,7 +35,8 @@
   "dependencies": {
     "@repo/shared": "workspace:*",
     "@repo/utils": "workspace:*",
-    "class-variance-authority": "^0.7.1"
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.517.0"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
