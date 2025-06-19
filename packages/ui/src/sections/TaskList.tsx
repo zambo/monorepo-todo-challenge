@@ -64,41 +64,51 @@ export const TaskList = ({
   };
 
   return (
-    <div className={`flex flex-col ${className}`}>
-      <FilterBar
-        currentFilter={currentFilter}
-        onFilterChange={onFilterChange}
-        onClearCompleted={onClearCompleted}
-        hasCompletedTasks={hasCompletedTasks}
-        className="mb-4"
-      />
-
-      <div className="space-y-6">
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              isEditing={editingTaskId === task.id}
-              onToggle={onToggleTask}
-              onDelete={onDeleteTask}
-              onStartEdit={handleStartEdit}
-              onSaveEdit={handleSaveEdit}
-              onCancelEdit={handleCancelEdit}
-              className="bg-white border border-gray-200 rounded-lg shadow-sm"
-            />
-          ))
-        ) : (
-          <div className="bg-white border border-gray-200 rounded-lg p-8 text-center">
-            <div className="text-gray-500 text-sm">{emptyMessage}</div>
-          </div>
-        )}
+    <div className={`flex flex-col h-full ${className}`}>
+      {/* Fixed Header - Filters Only */}
+      <div className="flex-shrink-0 mb-4">
+        <FilterBar
+          currentFilter={currentFilter}
+          onFilterChange={onFilterChange}
+          onClearCompleted={onClearCompleted}
+          hasCompletedTasks={hasCompletedTasks}
+        />
       </div>
 
+      {/* Scrollable Task List Area */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="space-y-2">
+          {filteredTasks.length > 0 ? (
+            filteredTasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                isEditing={editingTaskId === task.id}
+                onToggle={onToggleTask}
+                onDelete={onDeleteTask}
+                onStartEdit={handleStartEdit}
+                onSaveEdit={handleSaveEdit}
+                onCancelEdit={handleCancelEdit}
+                className="bg-white hover:bg-gray-50 transition-colors"
+              />
+            ))
+          ) : (
+            <div className="bg-white rounded-lg p-8 text-center">
+              <div className="text-gray-500 text-sm">
+                {tasks.length === 0 ? emptyMessage : "No tasks found"}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Fixed Footer - Task Count */}
       {tasks.length > 0 && (
-        <div className="mt-4 text-center text-sm text-gray-500">
-          {tasks.length} {tasks.length === 1 ? "task" : "tasks"} •{" "}
-          {tasks.filter((t) => !t.completed).length} remaining
+        <div className="flex-shrink-0 mt-4 pt-4 border-t border-gray-100">
+          <div className="text-center text-sm text-gray-500">
+            {tasks.length} {tasks.length === 1 ? "task" : "tasks"} •{" "}
+            {tasks.filter((t) => !t.completed).length} remaining
+          </div>
         </div>
       )}
     </div>

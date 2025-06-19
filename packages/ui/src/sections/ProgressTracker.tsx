@@ -7,6 +7,7 @@ import {
 } from "@repo/shared";
 import type { ProgressData } from "@repo/shared";
 import { cn } from "@repo/utils";
+import { Target, CheckCircle2, Clock, Trophy } from "lucide-react";
 import React from "react";
 
 interface ProgressTrackerProps {
@@ -76,7 +77,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
         {percentage > 0 && (
           <div
             className={cn(
-              "absolute top-1/2 w-4 h-4 rounded-full border-2 border-white dark:border-gray-800",
+              "absolute top-1/2 w-4 h-4 rounded-full border-2 border-white",
               "transform -translate-y-1/2 transition-all duration-500 ease-out shadow-sm",
               progressColor,
             )}
@@ -89,11 +90,8 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
       {showDetails && total > 0 && (
         <div className="grid grid-cols-3 gap-4 pt-2">
           <div className="text-center">
-            <div
-              className={cn(
-                "text-lg font-semibold text-green-600 dark:text-green-400",
-              )}
-            >
+            <div className="flex items-center justify-center gap-1 text-lg font-semibold text-teal-600">
+              <CheckCircle2 className="w-4 h-4" />
               {completed}
             </div>
             <div className={cn("text-xs", PROGRESS_COLORS.text.secondary)}>
@@ -101,11 +99,8 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
             </div>
           </div>
           <div className="text-center">
-            <div
-              className={cn(
-                "text-lg font-semibold text-purple-600 dark:text-purple-400",
-              )}
-            >
+            <div className="flex items-center justify-center gap-1 text-lg font-semibold text-orange-500">
+              <Clock className="w-4 h-4" />
               {total - completed}
             </div>
             <div className={cn("text-xs", PROGRESS_COLORS.text.secondary)}>
@@ -115,10 +110,11 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
           <div className="text-center">
             <div
               className={cn(
-                "text-lg font-semibold",
+                "flex items-center justify-center gap-1 text-lg font-semibold",
                 PROGRESS_COLORS.text.primary,
               )}
             >
+              <Target className="w-4 h-4" />
               {total}
             </div>
             <div className={cn("text-xs", PROGRESS_COLORS.text.secondary)}>
@@ -131,7 +127,9 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
       {/* Empty State */}
       {total === 0 && (
         <div className="text-center py-6">
-          <div className={cn("text-4xl mb-2")}>🎯</div>
+          <div className="flex justify-center mb-2">
+            <Trophy className="w-8 h-8 text-teal-400" />
+          </div>
           <p className={cn("text-sm", PROGRESS_COLORS.text.secondary)}>
             Add your first task to start tracking progress!
           </p>

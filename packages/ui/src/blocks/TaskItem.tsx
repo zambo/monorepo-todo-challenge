@@ -4,8 +4,8 @@ import type { Task, TaskEditData } from "@repo/shared";
 import { cn } from "@repo/utils";
 import React, { useState, useRef, useEffect } from "react";
 
-import { ActionButton } from "../base/ActionButton";
 import { Input, Checkbox } from "../base";
+import { ActionButton } from "../base/ActionButton";
 import { EditIcon, DeleteIcon, SaveIcon, CancelIcon } from "../base/icons";
 
 export interface TaskItemProps {
@@ -77,8 +77,8 @@ export const TaskItem: React.FC<TaskItemProps> = ({
   return (
     <div
       className={cn(
-        "group flex items-center gap-3 py-3 px-4 transition-all duration-200",
-        "hover:bg-gray-50",
+        "group flex items-start gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-200",
+        "animate-in slide-in-from-left-2 fade-in-0 duration-300",
         task.completed && "opacity-60",
         isEditing && "bg-teal-50 ring-2 ring-teal-200",
         className,
@@ -91,7 +91,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
         checked={task.completed}
         onChange={() => onToggle(task.id)}
         aria-label="Toggle task completion"
-        className="flex-shrink-0"
+        className="flex-shrink-0 mt-0.5"
       />
 
       {/* Task Content */}
@@ -160,11 +160,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
       <div
         className={cn(
           "flex items-center gap-1 transition-opacity duration-200",
-          isEditing
-            ? "opacity-100"
-            : isHovered
-              ? "opacity-100"
-              : "opacity-0 group-hover:opacity-100",
+          isEditing || isHovered ? "opacity-100" : "opacity-0",
         )}
       >
         {isEditing ? (
