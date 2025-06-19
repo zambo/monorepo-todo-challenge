@@ -12,6 +12,7 @@ const nextConfig: import("next").NextConfig = {
     "@repo/utils",
     "@repo/config",
   ],
+  output: "standalone",
 };
 
 module.exports = nextConfig;
