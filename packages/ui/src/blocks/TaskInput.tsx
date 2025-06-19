@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@repo/utils";
+import { Plus, FileText, X, RotateCcw } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 
 export interface TaskInputProps {
@@ -113,7 +114,7 @@ export const TaskInput = ({
           error && "border-red-400 ring-4 ring-red-100",
         )}
       >
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           <input
             ref={inputRef}
             type="text"
@@ -146,14 +147,15 @@ export const TaskInput = ({
           )}
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-center gap-2 justify-center sm:justify-start">
               {!showDescription && taskName.trim() && (
                 <button
                   type="button"
                   onClick={() => setShowDescription(true)}
-                  className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors"
                 >
+                  <FileText className="w-3 h-3" />
                   Add description
                 </button>
               )}
@@ -165,14 +167,15 @@ export const TaskInput = ({
                     setShowDescription(false);
                     inputRef.current?.focus();
                   }}
-                  className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors"
                 >
+                  <X className="w-3 h-3" />
                   Remove description
                 </button>
               )}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-center sm:justify-end">
               <button
                 type="button"
                 onClick={() => {
@@ -182,22 +185,25 @@ export const TaskInput = ({
                   setError(undefined);
                 }}
                 className={cn(
-                  "px-3 py-1 text-xs font-medium rounded-md transition-colors",
-                  "text-gray-500 hover:text-gray-700 hover:bg-gray-100",
+                  "inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full transition-all",
+                  "text-gray-500 hover:text-gray-700 hover:bg-gray-100 active:scale-95",
                 )}
                 disabled={!taskName.trim() && !description.trim()}
               >
+                <RotateCcw className="w-3 h-3" />
                 Clear
               </button>
               <button
                 type="submit"
                 disabled={!taskName.trim()}
                 className={cn(
-                  "px-4 py-1 text-xs font-medium rounded-md transition-colors",
+                  "inline-flex items-center gap-1 px-4 py-1 text-xs font-medium rounded-full transition-all",
                   "bg-teal-500 text-white hover:bg-teal-600 disabled:bg-gray-300",
-                  "disabled:cursor-not-allowed",
+                  "disabled:cursor-not-allowed active:scale-95",
+                  !taskName.trim() ? "" : "hover:shadow-md",
                 )}
               >
+                <Plus className="w-3 h-3" />
                 Add Task
               </button>
             </div>
