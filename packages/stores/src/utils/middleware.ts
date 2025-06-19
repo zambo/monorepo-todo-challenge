@@ -67,10 +67,8 @@ export function createLoggerMiddleware<T>(
 ): (stateCreator: StateCreator<T>) => StateCreator<T> {
   const {
     enabled = process.env.NODE_ENV === "development",
-    level = "debug",
     name = "Store",
     logger = console.log,
-    excludeActions = [],
   } = config;
 
   return (stateCreator) => {
@@ -173,11 +171,11 @@ function getStateDiff<T>(prev: T, next: T): Partial<T> {
   ]);
 
   for (const key of allKeys) {
-    const prevValue = (prev as any)[key];
-    const nextValue = (next as any)[key];
+    const prevValue = (prev as Record<string, unknown>)[key];
+    const nextValue = (next as Record<string, unknown>)[key];
 
     if (prevValue !== nextValue) {
-      (diff as any)[key] = nextValue;
+      (diff as Record<string, unknown>)[key] = nextValue;
     }
   }
 

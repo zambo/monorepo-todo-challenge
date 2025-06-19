@@ -1,5 +1,4 @@
-import type { Task, TaskFilter } from "./task";
-import type { TaskEditData } from "./task";
+import type { Task, TaskFilter, TaskEditData } from "./task";
 
 // Behavioral contracts - what any task management system should implement
 export interface TaskActions {
