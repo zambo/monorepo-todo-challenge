@@ -43,6 +43,6 @@ describe("DateHeader", () => {
   test("applies custom className", () => {
     const { container } = render(<DateHeader className="custom-class" />);
 
-    expect(container.firstChild?.firstChild).toHaveClass("custom-class");
+    expect(container.firstChild).toHaveClass("custom-class");
   });
 });
