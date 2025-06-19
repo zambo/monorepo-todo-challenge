@@ -1,0 +1,7 @@
+/* App-level CSS generation (current approach) */
+
+@config "../../tailwind.config.ts";
+
+@import "@repo/config/tailwind/base.css";
+
+/* App-specific styles */

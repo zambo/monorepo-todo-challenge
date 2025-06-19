@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, forwardRef, useId } from "react";
 import { cn } from "@repo/utils";
+import { InputHTMLAttributes, forwardRef, useId } from "react";
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -32,7 +32,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 : "border-gray-300 hover:border-teal-400",
               className,
             )}
-            onClick={() => onChange?.({ target: { checked: !checked } } as any)}
+            onClick={() =>
+              onChange?.({
+                target: { checked: !checked },
+              } as React.ChangeEvent<HTMLInputElement>)
+            }
           >
             {checked && (
               <svg

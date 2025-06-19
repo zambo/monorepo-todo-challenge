@@ -72,7 +72,7 @@ export const DateHeader: React.FC<DateHeaderProps> = ({
   return (
     <div className={cn("flex items-center justify-between", className)}>
       <div>
-        <div className="text-4xl font-light text-gray-800 leading-none">
+        <div className="text-3xl sm:text-4xl font-light text-gray-800 leading-none">
           {day}
         </div>
         <div className="text-xs font-medium text-gray-500 mt-1">
@@ -81,7 +81,8 @@ export const DateHeader: React.FC<DateHeaderProps> = ({
       </div>
       {showDayName && (
         <div className="text-sm font-medium text-gray-600 tracking-wide">
-          {dayName}
+          <span className="hidden sm:inline">{dayName}</span>
+          <span className="sm:hidden">{dayName.slice(0, 3)}</span>
         </div>
       )}
     </div>

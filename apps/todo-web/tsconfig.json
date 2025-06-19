@@ -1,0 +1,25 @@
+{
+  "extends": "../../packages/config/typescript/base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/types/*": ["./src/types/*"],
+      "@repo/stores": ["../../packages/stores/src"],
+      "@repo/ui": ["../../packages/ui/src"],
+      "@repo/shared": ["../../packages/shared/src"],
+      "@repo/utils": ["../../packages/utils/src"],
+      "@repo/config": ["../../packages/config"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

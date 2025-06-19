@@ -1,0 +1,46 @@
+{
+  "name": "todo-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "clean": "rm -rf .next"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.3.3",
+    "zustand": "^5.0.0",
+    "immer": "^9.0.21",
+    "@repo/config": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@repo/shared": "workspace:*",
+    "@repo/stores": "workspace:*",
+    "@repo/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3",
+    "happy-dom": "^18.0.1",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.3"
+  }
+}

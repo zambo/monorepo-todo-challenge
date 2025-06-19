@@ -13,10 +13,10 @@ interface ActionButtonProps {
 }
 
 const variantStyles = {
-  edit: "text-teal-600 hover:text-teal-800 hover:bg-teal-50",
-  delete: "text-red-600 hover:text-red-800 hover:bg-red-50",
-  save: "text-green-600 hover:text-green-800 hover:bg-green-50",
-  cancel: "text-gray-600 hover:text-gray-800 hover:bg-gray-50",
+  edit: "text-gray-400 hover:text-teal-600 hover:bg-teal-50",
+  delete: "text-gray-400 hover:text-red-500 hover:bg-red-50",
+  save: "text-gray-500 hover:text-green-600 hover:bg-green-50",
+  cancel: "text-gray-400 hover:text-gray-600 hover:bg-gray-50",
 };
 
 const sizeStyles = {
@@ -36,8 +36,9 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "inline-flex items-center justify-center rounded-md transition-colors duration-200",
+        "inline-flex items-center justify-center rounded-md transition-all duration-200",
         "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500",
+        "active:scale-90 hover:scale-110",
         variantStyles[variant],
         sizeStyles[size],
         className,

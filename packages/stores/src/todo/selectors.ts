@@ -1,5 +1,4 @@
 import { useTodoStore } from "./useTodoStore";
-import type { Task, TaskFilter } from "@repo/shared";
 
 /**
  * Memoized selectors for optimal performance

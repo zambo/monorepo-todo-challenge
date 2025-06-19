@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-
 import { TASK_FILTERS } from "@repo/shared";
+import { describe, it, expect, beforeEach } from "vitest";
 
 import { createTodoStore } from "./useTodoStore";
 
@@ -17,11 +16,9 @@ describe("TodoStore", () => {
 
   describe("Task Management", () => {
     it("should add a new task", () => {
-      const { addTask, getState } = store;
+      store.getState().addTask("Buy groceries");
 
-      addTask("Buy groceries");
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks).toHaveLength(1);
       expect(state.tasks[0].name).toBe("Buy groceries");
       expect(state.tasks[0].completed).toBe(false);
@@ -31,67 +28,57 @@ describe("TodoStore", () => {
     });
 
     it("should not add empty tasks", () => {
-      const { addTask, getState } = store;
+      store.getState().addTask("");
+      store.getState().addTask("   ");
 
-      addTask("");
-      addTask("   ");
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks).toHaveLength(0);
     });
 
     it("should toggle task completion", () => {
-      const { addTask, toggleTask, getState } = store;
+      store.getState().addTask("Test task");
+      const taskId = store.getState().tasks[0].id;
 
-      addTask("Test task");
-      const taskId = getState().tasks[0].id;
+      store.getState().toggleTask(taskId);
 
-      toggleTask(taskId);
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks[0].completed).toBe(true);
       expect(state.tasks[0].updatedAt).toBeInstanceOf(Date);
     });
 
     it("should update task name", () => {
-      const { addTask, updateTask, getState } = store;
+      store.getState().addTask("Original name");
+      const taskId = store.getState().tasks[0].id;
 
-      addTask("Original name");
-      const taskId = getState().tasks[0].id;
+      store.getState().updateTask(taskId, "Updated name");
 
-      updateTask(taskId, "Updated name");
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks[0].name).toBe("Updated name");
       expect(state.tasks[0].updatedAt).toBeInstanceOf(Date);
     });
 
     it("should delete a task", () => {
-      const { addTask, deleteTask, getState } = store;
+      store.getState().addTask("Task to delete");
+      const taskId = store.getState().tasks[0].id;
 
-      addTask("Task to delete");
-      const taskId = getState().tasks[0].id;
+      store.getState().deleteTask(taskId);
 
-      deleteTask(taskId);
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks).toHaveLength(0);
     });
 
     it("should clear completed tasks", () => {
-      const { addTask, toggleTask, clearCompleted, getState } = store;
+      store.getState().addTask("Task 1");
+      store.getState().addTask("Task 2");
+      store.getState().addTask("Task 3");
 
-      addTask("Task 1");
-      addTask("Task 2");
-      addTask("Task 3");
+      const state = store.getState();
+      store.getState().toggleTask(state.tasks[0].id); // Complete first task
+      store.getState().toggleTask(state.tasks[2].id); // Complete third task
 
-      const state = getState();
-      toggleTask(state.tasks[0].id); // Complete first task
-      toggleTask(state.tasks[2].id); // Complete third task
+      store.getState().clearCompleted();
 
-      clearCompleted();
-
-      const finalState = getState();
+      const finalState = store.getState();
       expect(finalState.tasks).toHaveLength(1);
       expect(finalState.tasks[0].name).toBe("Task 2");
     });
@@ -99,40 +86,32 @@ describe("TodoStore", () => {
 
   describe("Filtering", () => {
     beforeEach(() => {
-      const { addTask, toggleTask, getState } = store;
+      store.getState().addTask("Active task 1");
+      store.getState().addTask("Active task 2");
+      store.getState().addTask("Completed task 1");
 
-      addTask("Active task 1");
-      addTask("Active task 2");
-      addTask("Completed task 1");
-
-      const state = getState();
-      toggleTask(state.tasks[2].id); // Complete the third task
+      const state = store.getState();
+      store.getState().toggleTask(state.tasks[2].id); // Complete the third task
     });
 
     it("should filter all tasks", () => {
-      const { setFilter, getFilteredTasks } = store;
-
-      setFilter(TASK_FILTERS.ALL);
-      const filtered = getFilteredTasks();
+      store.getState().setFilter(TASK_FILTERS.ALL);
+      const filtered = store.getState().getFilteredTasks();
 
       expect(filtered).toHaveLength(3);
     });
 
     it("should filter active tasks", () => {
-      const { setFilter, getFilteredTasks } = store;
-
-      setFilter(TASK_FILTERS.ACTIVE);
-      const filtered = getFilteredTasks();
+      store.getState().setFilter(TASK_FILTERS.ACTIVE);
+      const filtered = store.getState().getFilteredTasks();
 
       expect(filtered).toHaveLength(2);
       expect(filtered.every((task) => !task.completed)).toBe(true);
     });
 
     it("should filter completed tasks", () => {
-      const { setFilter, getFilteredTasks } = store;
-
-      setFilter(TASK_FILTERS.COMPLETED);
-      const filtered = getFilteredTasks();
+      store.getState().setFilter(TASK_FILTERS.COMPLETED);
+      const filtered = store.getState().getFilteredTasks();
 
       expect(filtered).toHaveLength(1);
       expect(filtered.every((task) => task.completed)).toBe(true);
@@ -141,18 +120,16 @@ describe("TodoStore", () => {
 
   describe("Statistics", () => {
     it("should calculate task statistics correctly", () => {
-      const { addTask, toggleTask, getTaskStats, getState } = store;
+      store.getState().addTask("Task 1");
+      store.getState().addTask("Task 2");
+      store.getState().addTask("Task 3");
+      store.getState().addTask("Task 4");
 
-      addTask("Task 1");
-      addTask("Task 2");
-      addTask("Task 3");
-      addTask("Task 4");
+      const state = store.getState();
+      store.getState().toggleTask(state.tasks[0].id);
+      store.getState().toggleTask(state.tasks[1].id);
 
-      const state = getState();
-      toggleTask(state.tasks[0].id);
-      toggleTask(state.tasks[1].id);
-
-      const stats = getTaskStats();
+      const stats = store.getState().getTaskStats();
 
       expect(stats.total).toBe(4);
       expect(stats.active).toBe(2);
@@ -161,9 +138,7 @@ describe("TodoStore", () => {
     });
 
     it("should handle empty task list", () => {
-      const { getTaskStats } = store;
-
-      const stats = getTaskStats();
+      const stats = store.getState().getTaskStats();
 
       expect(stats.total).toBe(0);
       expect(stats.active).toBe(0);
@@ -174,39 +149,33 @@ describe("TodoStore", () => {
 
   describe("Bulk Operations", () => {
     it("should toggle all tasks to completed", () => {
-      const { addTask, toggleAllTasks, getState } = store;
+      store.getState().addTask("Task 1");
+      store.getState().addTask("Task 2");
+      store.getState().addTask("Task 3");
 
-      addTask("Task 1");
-      addTask("Task 2");
-      addTask("Task 3");
+      store.getState().toggleAllTasks(true);
 
-      toggleAllTasks(true);
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks.every((task) => task.completed)).toBe(true);
     });
 
     it("should toggle all tasks to active", () => {
-      const { addTask, toggleTask, toggleAllTasks, getState } = store;
+      store.getState().addTask("Task 1");
+      store.getState().addTask("Task 2");
 
-      addTask("Task 1");
-      addTask("Task 2");
+      const state = store.getState();
+      store.getState().toggleTask(state.tasks[0].id);
+      store.getState().toggleTask(state.tasks[1].id);
 
-      const state = getState();
-      toggleTask(state.tasks[0].id);
-      toggleTask(state.tasks[1].id);
+      store.getState().toggleAllTasks(false);
 
-      toggleAllTasks(false);
-
-      const finalState = getState();
+      const finalState = store.getState();
       expect(finalState.tasks.every((task) => !task.completed)).toBe(true);
     });
 
     it("should import tasks without duplicates", () => {
-      const { addTask, importTasks, getState } = store;
-
-      addTask("Existing task");
-      const existingId = getState().tasks[0].id;
+      store.getState().addTask("Existing task");
+      const existingId = store.getState().tasks[0].id;
 
       const newTasks = [
         {
@@ -225,23 +194,21 @@ describe("TodoStore", () => {
         },
       ];
 
-      importTasks(newTasks);
+      store.getState().importTasks(newTasks);
 
-      const finalState = getState();
+      const finalState = store.getState();
       expect(finalState.tasks).toHaveLength(2); // Original + 1 new (no duplicate)
       expect(finalState.tasks[1].name).toBe("New task");
     });
 
     it("should clear all tasks", () => {
-      const { addTask, clearAllTasks, getState } = store;
+      store.getState().addTask("Task 1");
+      store.getState().addTask("Task 2");
+      store.getState().addTask("Task 3");
 
-      addTask("Task 1");
-      addTask("Task 2");
-      addTask("Task 3");
+      store.getState().clearAllTasks();
 
-      clearAllTasks();
-
-      const state = getState();
+      const state = store.getState();
       expect(state.tasks).toHaveLength(0);
     });
   });

@@ -34,17 +34,17 @@ export const LOCAL_STORAGE_KEYS = {
 
 // Progress related constants
 export const PROGRESS_COLORS = {
-  container: "bg-gray-100 dark:bg-gray-800",
+  container: "bg-gray-100",
   bar: {
-    empty: "bg-gray-200 dark:bg-gray-700",
-    low: "bg-orange-500 dark:bg-orange-600",
-    medium: "bg-yellow-500 dark:bg-yellow-600",
-    good: "bg-teal-500 dark:bg-teal-600",
-    excellent: "bg-green-500 dark:bg-green-600",
+    empty: "bg-gray-300",
+    low: "bg-orange-400",
+    medium: "bg-yellow-400",
+    good: "bg-teal-400",
+    excellent: "bg-teal-500",
   },
   text: {
-    primary: "text-gray-900 dark:text-gray-50",
-    secondary: "text-gray-500 dark:text-gray-400",
+    primary: "text-gray-900",
+    secondary: "text-gray-600",
   },
 };
 

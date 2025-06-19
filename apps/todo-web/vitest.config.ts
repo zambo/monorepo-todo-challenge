@@ -13,11 +13,17 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@repo/ui": path.resolve(__dirname, "./src"),
+      "@repo/ui": path.resolve(__dirname, "../../packages/ui/src"),
       "@repo/shared": path.resolve(__dirname, "../../packages/shared/src"),
       "@repo/stores": path.resolve(__dirname, "../../packages/stores/src"),
       "@repo/utils": path.resolve(__dirname, "../../packages/utils/src"),
       "@repo/config": path.resolve(__dirname, "../../packages/config"),
+    },
+  },
+  css: {
+    modules: false,
+    postcss: {
+      plugins: [],
     },
   },
 });
