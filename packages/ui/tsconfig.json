@@ -5,6 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "paths": {
       "@repo/ui/*": ["./src/*"],
       "@repo/shared/*": ["../shared/src/*"],

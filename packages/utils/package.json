@@ -22,7 +22,7 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit",
+    "check-types": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "keywords": [],

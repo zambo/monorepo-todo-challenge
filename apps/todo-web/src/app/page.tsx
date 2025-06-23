@@ -11,11 +11,16 @@ import {
   useSetFilter,
   useGetProgress,
 } from "@repo/stores";
-import { TaskInput, DateHeader, ProgressTracker, TaskList } from "@repo/ui";
+import {
+  TaskInput,
+  DateHeader,
+  ProgressTracker,
+  TaskList,
+  MobileTaskModal,
+} from "@repo/ui";
 import { cn } from "@repo/utils";
 import { useState, useEffect } from "react";
 
-import { MobileTaskModal } from "../components/MobileTaskModal";
 import { useMobileDetection } from "../hooks/useMobileDetection";
 
 export default function Home() {

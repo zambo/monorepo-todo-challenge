@@ -1,7 +1,8 @@
 "use client";
 
-import { TaskInput } from "@repo/ui";
 import { useEffect } from "react";
+
+import { TaskInput } from "../blocks/TaskInput";
 
 interface MobileTaskModalProps {
   isOpen: boolean;
