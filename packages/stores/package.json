@@ -22,7 +22,7 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit",
+    "check-types": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -44,6 +44,7 @@
     "@repo/config": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "typescript": "^5.0.0"
   }

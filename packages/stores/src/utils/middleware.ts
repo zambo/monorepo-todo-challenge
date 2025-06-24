@@ -43,7 +43,9 @@ export function createDevtoolsMiddleware<T>(
 ): (stateCreator: StateCreator<T>) => StateCreator<T> {
   const {
     name,
-    enabled = process.env.NODE_ENV === "development",
+    enabled = typeof globalThis !== "undefined" &&
+      (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
+        ?.NODE_ENV === "development",
     ...options
   } = config;
 
@@ -55,7 +57,7 @@ export function createDevtoolsMiddleware<T>(
     return devtools(stateCreator, {
       name,
       ...options,
-    });
+    }) as unknown as StateCreator<T>;
   };
 }
 
@@ -66,7 +68,9 @@ export function createLoggerMiddleware<T>(
   config: LoggerConfig = {},
 ): (stateCreator: StateCreator<T>) => StateCreator<T> {
   const {
-    enabled = process.env.NODE_ENV === "development",
+    enabled = typeof globalThis !== "undefined" &&
+      (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
+        ?.NODE_ENV === "development",
     name = "Store",
     logger = console.log,
   } = config;
@@ -81,7 +85,7 @@ export function createLoggerMiddleware<T>(
         const prevState = get();
 
         // Call the original set function
-        set(partial, replace);
+        set(partial, replace as false);
 
         const nextState = get();
 
@@ -128,7 +132,9 @@ export function createPerformanceMiddleware<T>(
   config: PerformanceConfig = {},
 ): (stateCreator: StateCreator<T>) => StateCreator<T> {
   const {
-    enabled = process.env.NODE_ENV === "development",
+    enabled = typeof globalThis !== "undefined" &&
+      (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
+        ?.NODE_ENV === "development",
     name = "Store",
     slowThreshold = 16, // 16ms for 60fps
     onSlowOperation = (operation, duration) =>
@@ -143,7 +149,7 @@ export function createPerformanceMiddleware<T>(
     return (set, get, api) => {
       const wrappedSet: typeof set = (partial, replace) => {
         const start = performance.now();
-        set(partial, replace);
+        set(partial, replace as false);
         const duration = performance.now() - start;
 
         if (duration > slowThreshold) {

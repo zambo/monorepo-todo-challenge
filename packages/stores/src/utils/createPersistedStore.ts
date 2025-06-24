@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { persist, createJSONStorage, PersistOptions } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 /**
  * Enhanced persistence configuration with better error handling and performance
@@ -69,7 +69,7 @@ export function createPersistedStore<T>(
     }
   };
 
-  const persistOptions: PersistOptions<T> = {
+  const persistOptions = {
     name,
     storage: getStorage(),
     partialize,
@@ -82,26 +82,30 @@ export function createPersistedStore<T>(
     deserialize: deserialize ? { parse: deserialize } : undefined,
 
     // Enhanced hydration with error handling
-    onRehydrateStorage: () => (state, error) => {
-      if (error) {
-        console.error(`Failed to rehydrate store "${name}":`, error);
-        return;
-      }
-
-      if (onRehydrateStorage && state) {
-        try {
-          onRehydrateStorage(state);
-        } catch (rehydrateError) {
-          console.error(
-            `Error in onRehydrateStorage for "${name}":`,
-            rehydrateError,
-          );
+    onRehydrateStorage:
+      () => (state: T | undefined, error: Error | undefined) => {
+        if (error) {
+          console.error(`Failed to rehydrate store "${name}":`, error);
+          return;
         }
-      }
-    },
+
+        if (onRehydrateStorage && state) {
+          try {
+            onRehydrateStorage(state);
+          } catch (rehydrateError) {
+            console.error(
+              `Error in onRehydrateStorage for "${name}":`,
+              rehydrateError,
+            );
+          }
+        }
+      },
   };
 
-  return persist(stateCreator, persistOptions);
+  return persist(
+    stateCreator,
+    persistOptions as any,
+  ) as unknown as StateCreator<T>;
 }
 
 /**
