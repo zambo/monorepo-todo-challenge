@@ -34,8 +34,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "zustand": "^5.0.0",
-    "immer": "^9.0.21"
+    "zustand": "^5.0.6",
+    "immer": "^10.1.1"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0"
