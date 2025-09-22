@@ -36,11 +36,11 @@
     "@repo/shared": "workspace:*",
     "@repo/utils": "workspace:*",
     "class-variance-authority": "^0.7.1",
-    "lucide-react": "^0.517.0"
+    "lucide-react": "^0.544.0"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.1.13",
     "typescript": "^5.0.0"
   }
 }
